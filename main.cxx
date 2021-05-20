@@ -13,7 +13,7 @@ using namespace std;
 template <class G, class T>
 auto runPagerankCall(const char *name, const G& xt, const vector<T> *init, const vector<T> *ranks=nullptr) {
   int repeat = 5;
-  auto a = pagerankSeq(xt, init, {repeat});
+  auto a = pagerankNvgraph(xt, init, {repeat});
   auto e = absError(a.ranks, ranks? *ranks : a.ranks);
   print(xt); printf(" [%09.3f ms; %03d iters.] [%.4e err.] %s\n", a.time, a.iterations, e, name);
   return a;
