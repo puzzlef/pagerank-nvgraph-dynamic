@@ -1,15 +1,31 @@
 Using graph email-Eu-core-temporal.txt ...
 Temporal edges: 332335
-order: 986 size: 24929 {}
+order: 986 size: 24928 {}
 
-# Batch size 1e+5
-[00002.473 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-[00002.303 ms; 000 iters.] [1.0035e-6 err.] pagerankDynamic
+# Batch size 1e+0
+[00003.239 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00000.245 ms; 000 iters.] [3.9897e-7 err.] pagerankDynamic
 
-# Batch size 1e+4
-[00002.667 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-[00002.235 ms; 000 iters.] [1.3209e-6 err.] pagerankDynamic
+# Batch size 5e+0
+[00003.273 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00000.564 ms; 000 iters.] [6.9432e-7 err.] pagerankDynamic
+
+# Batch size 1e+1
+[00003.257 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00000.730 ms; 000 iters.] [7.9544e-7 err.] pagerankDynamic
+
+# Batch size 5e+1
+[00003.262 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00001.377 ms; 000 iters.] [1.2863e-6 err.] pagerankDynamic
+
+# Batch size 1e+2
+[00003.256 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00001.627 ms; 000 iters.] [1.3745e-6 err.] pagerankDynamic
+
+# Batch size 5e+2
+[00003.257 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00002.045 ms; 000 iters.] [1.3960e-6 err.] pagerankDynamic
 
 # Batch size 1e+3
-[00002.657 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-[00001.798 ms; 000 iters.] [1.4059e-6 err.] pagerankDynamic
+[00003.259 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00002.225 ms; 000 iters.] [1.3943e-6 err.] pagerankDynamic

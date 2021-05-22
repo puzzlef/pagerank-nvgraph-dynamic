@@ -1,19 +1,43 @@
 Using graph wiki-talk-temporal.txt ...
 Temporal edges: 7833141
-order: 1140149 size: 3309592 {}
+order: 1140122 size: 3309560 {}
 
-# Batch size 1e+6
-[00008.820 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-[00010.340 ms; 000 iters.] [4.3904e-6 err.] pagerankDynamic
+# Batch size 1e+0
+[00008.260 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00000.565 ms; 000 iters.] [1.0202e-6 err.] pagerankDynamic
 
-# Batch size 1e+5
-[00008.187 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-[00008.803 ms; 000 iters.] [4.5346e-6 err.] pagerankDynamic
+# Batch size 5e+0
+[00008.251 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00001.387 ms; 000 iters.] [1.8660e-6 err.] pagerankDynamic
 
-# Batch size 1e+4
-[00008.766 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-[00008.301 ms; 000 iters.] [3.7298e-6 err.] pagerankDynamic
+# Batch size 1e+1
+[00008.238 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00001.798 ms; 000 iters.] [2.2741e-6 err.] pagerankDynamic
+
+# Batch size 5e+1
+[00009.137 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00003.628 ms; 000 iters.] [3.0767e-6 err.] pagerankDynamic
+
+# Batch size 1e+2
+[00008.253 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00004.385 ms; 000 iters.] [3.2389e-6 err.] pagerankDynamic
+
+# Batch size 5e+2
+[00009.450 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00007.204 ms; 000 iters.] [3.3589e-6 err.] pagerankDynamic
 
 # Batch size 1e+3
-[00008.154 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-[00006.408 ms; 000 iters.] [3.3933e-6 err.] pagerankDynamic
+[00008.152 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00006.344 ms; 000 iters.] [3.3807e-6 err.] pagerankDynamic
+
+# Batch size 5e+3
+[00008.231 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00007.396 ms; 000 iters.] [3.5822e-6 err.] pagerankDynamic
+
+# Batch size 1e+4
+[00010.091 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00008.451 ms; 000 iters.] [3.7259e-6 err.] pagerankDynamic
+
+# Batch size 5e+4
+[00009.121 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00010.248 ms; 000 iters.] [4.2623e-6 err.] pagerankDynamic

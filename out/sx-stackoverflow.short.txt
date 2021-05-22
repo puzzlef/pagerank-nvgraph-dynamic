@@ -1,0 +1,51 @@
+Using graph sx-stackoverflow.txt ...
+Temporal edges: 63497051
+order: 2601975 size: 36233429 {}
+
+# Batch size 1e+0
+[00051.180 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00003.086 ms; 000 iters.] [1.3436e-6 err.] pagerankDynamic
+
+# Batch size 5e+0
+[00057.530 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00007.709 ms; 000 iters.] [2.2293e-6 err.] pagerankDynamic
+
+# Batch size 1e+1
+[00104.728 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00030.413 ms; 000 iters.] [2.5812e-6 err.] pagerankDynamic
+
+# Batch size 5e+1
+[00103.689 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00051.977 ms; 000 iters.] [3.4487e-6 err.] pagerankDynamic
+
+# Batch size 1e+2
+[00051.169 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00020.250 ms; 000 iters.] [3.6013e-6 err.] pagerankDynamic
+
+# Batch size 5e+2
+[00051.129 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00028.123 ms; 000 iters.] [3.7696e-6 err.] pagerankDynamic
+
+# Batch size 1e+3
+[00051.090 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00030.524 ms; 000 iters.] [3.8050e-6 err.] pagerankDynamic
+
+# Batch size 5e+3
+[00051.178 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00035.398 ms; 000 iters.] [3.8865e-6 err.] pagerankDynamic
+
+# Batch size 1e+4
+[00051.192 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00037.255 ms; 000 iters.] [3.9379e-6 err.] pagerankDynamic
+
+# Batch size 5e+4
+[00051.161 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00041.770 ms; 000 iters.] [4.1385e-6 err.] pagerankDynamic
+
+# Batch size 1e+5
+[00051.124 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00043.506 ms; 000 iters.] [4.2669e-6 err.] pagerankDynamic
+
+# Batch size 5e+5
+[00051.133 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00047.743 ms; 000 iters.] [4.6767e-6 err.] pagerankDynamic

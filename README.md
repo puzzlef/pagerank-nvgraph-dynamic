@@ -7,9 +7,9 @@ This experiment was for comparing the performance between:
 Both techniques were attempted on different temporal graphs, updating each
 graph with multiple batch sizes. Batch sizes are always an order of 10. New
 edges are incrementally added to the graph batch-by-batch until the entire
-graph is complete. For some reason, there is only a minor speedup of dynamic
+graph is complete. For some reason, there is only a small speedup of dynamic
 pagerank compared to static when batch size is **1000**. Could this be because
-of some optimization in nvGraph which makes it fast if not initials ranks is
+of some optimization in nvGraph which makes it fast if initials ranks is not
 provided, but becomes slow when they are provided?
 
 All outputs (including shortened versions) are saved in [out/](out/) and
@@ -26,19 +26,35 @@ $ ./a.out ~/data/email-Eu-core-temporal.txt
 # (SHORTENED)
 # Using graph email-Eu-core-temporal.txt ...
 # Temporal edges: 332335
-# order: 986 size: 24929 {}
+# order: 986 size: 24928 {}
 #
-# # Batch size 1e+5
-# [00002.473 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00002.303 ms; 000 iters.] [1.0035e-6 err.] pagerankDynamic
+# # Batch size 1e+0
+# [00003.239 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00000.245 ms; 000 iters.] [3.9897e-7 err.] pagerankDynamic
 #
-# # Batch size 1e+4
-# [00002.667 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00002.235 ms; 000 iters.] [1.3209e-6 err.] pagerankDynamic
+# # Batch size 5e+0
+# [00003.273 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00000.564 ms; 000 iters.] [6.9432e-7 err.] pagerankDynamic
+#
+# # Batch size 1e+1
+# [00003.257 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00000.730 ms; 000 iters.] [7.9544e-7 err.] pagerankDynamic
+#
+# # Batch size 5e+1
+# [00003.262 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00001.377 ms; 000 iters.] [1.2863e-6 err.] pagerankDynamic
+#
+# # Batch size 1e+2
+# [00003.256 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00001.627 ms; 000 iters.] [1.3745e-6 err.] pagerankDynamic
+#
+# # Batch size 5e+2
+# [00003.257 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00002.045 ms; 000 iters.] [1.3960e-6 err.] pagerankDynamic
 #
 # # Batch size 1e+3
-# [00002.657 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00001.798 ms; 000 iters.] [1.4059e-6 err.] pagerankDynamic
+# [00003.259 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00002.225 ms; 000 iters.] [1.3943e-6 err.] pagerankDynamic
 ```
 
 <br>
@@ -50,23 +66,47 @@ $ ./a.out ~/data/wiki-talk-temporal.txt
 # (SHORTENED)
 # Using graph wiki-talk-temporal.txt ...
 # Temporal edges: 7833141
-# order: 1140149 size: 3309592 {}
+# order: 1140122 size: 3309560 {}
 #
-# # Batch size 1e+6
-# [00008.820 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00010.340 ms; 000 iters.] [4.3904e-6 err.] pagerankDynamic
+# # Batch size 1e+0
+# [00008.260 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00000.565 ms; 000 iters.] [1.0202e-6 err.] pagerankDynamic
 #
-# # Batch size 1e+5
-# [00008.187 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00008.803 ms; 000 iters.] [4.5346e-6 err.] pagerankDynamic
+# # Batch size 5e+0
+# [00008.251 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00001.387 ms; 000 iters.] [1.8660e-6 err.] pagerankDynamic
 #
-# # Batch size 1e+4
-# [00008.766 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00008.301 ms; 000 iters.] [3.7298e-6 err.] pagerankDynamic
+# # Batch size 1e+1
+# [00008.238 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00001.798 ms; 000 iters.] [2.2741e-6 err.] pagerankDynamic
+#
+# # Batch size 5e+1
+# [00009.137 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00003.628 ms; 000 iters.] [3.0767e-6 err.] pagerankDynamic
+#
+# # Batch size 1e+2
+# [00008.253 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00004.385 ms; 000 iters.] [3.2389e-6 err.] pagerankDynamic
+#
+# # Batch size 5e+2
+# [00009.450 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00007.204 ms; 000 iters.] [3.3589e-6 err.] pagerankDynamic
 #
 # # Batch size 1e+3
-# [00008.154 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00006.408 ms; 000 iters.] [3.3933e-6 err.] pagerankDynamic
+# [00008.152 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00006.344 ms; 000 iters.] [3.3807e-6 err.] pagerankDynamic
+#
+# # Batch size 5e+3
+# [00008.231 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00007.396 ms; 000 iters.] [3.5822e-6 err.] pagerankDynamic
+#
+# # Batch size 1e+4
+# [00010.091 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00008.451 ms; 000 iters.] [3.7259e-6 err.] pagerankDynamic
+#
+# # Batch size 5e+4
+# [00009.121 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00010.248 ms; 000 iters.] [4.2623e-6 err.] pagerankDynamic
 ```
 
 <br>

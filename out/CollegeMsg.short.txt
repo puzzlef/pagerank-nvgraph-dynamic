@@ -1,11 +1,27 @@
 Using graph CollegeMsg.txt ...
 Temporal edges: 59836
-order: 1899 size: 20296 {}
+order: 1898 size: 20269 {}
 
-# Batch size 1e+4
-[00004.732 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-[00004.473 ms; 000 iters.] [9.2462e-7 err.] pagerankDynamic
+# Batch size 1e+0
+[00005.131 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00000.518 ms; 000 iters.] [3.5131e-7 err.] pagerankDynamic
 
-# Batch size 1e+3
-[00004.844 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-[00003.536 ms; 000 iters.] [1.0885e-6 err.] pagerankDynamic
+# Batch size 5e+0
+[00004.748 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00001.062 ms; 000 iters.] [7.3507e-7 err.] pagerankDynamic
+
+# Batch size 1e+1
+[00004.742 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00001.294 ms; 000 iters.] [8.1216e-7 err.] pagerankDynamic
+
+# Batch size 5e+1
+[00004.740 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00001.929 ms; 000 iters.] [1.0621e-6 err.] pagerankDynamic
+
+# Batch size 1e+2
+[00004.741 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00002.266 ms; 000 iters.] [1.0962e-6 err.] pagerankDynamic
+
+# Batch size 5e+2
+[00004.737 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+[00002.965 ms; 000 iters.] [1.1528e-6 err.] pagerankDynamic
