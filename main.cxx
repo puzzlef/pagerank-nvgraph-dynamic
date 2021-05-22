@@ -12,46 +12,51 @@ using namespace std;
 
 template <class G, class T>
 auto runPagerankCall(const char *name, const G& xt, const vector<T> *init, const vector<T> *ranks=nullptr) {
-  int repeat = 5;
+  int repeat = name? 5 : 1;
   auto a = pagerankNvgraph(xt, init, {repeat});
   auto e = absError(a.ranks, ranks? *ranks : a.ranks);
-  print(xt); printf(" [%09.3f ms; %03d iters.] [%.4e err.] %s\n", a.time, a.iterations, e, name);
+  if (name) { print(xt); printf(" [%09.3f ms; %03d iters.] [%.4e err.] %s\n", a.time, a.iterations, e, name); }
   return a;
 }
 
 
-void runPagerankBatch(const string& data, bool show, int batch) {
+void runPagerankBatch(const string& data, bool show, int skip, int batch) {
   vector<float>  ranksOld, ranksAdj;
   vector<float> *initStatic  = nullptr;
   vector<float> *initDynamic = &ranksAdj;
 
   DiGraph<> x;
   stringstream s(data);
-  auto ksOld = vertices(x);
-  while(readSnapTemporal(x, s, batch)) {
-    auto ks = vertices(x);
+  while (true) {
+    // Skip some edges (to speed up execution)
+    if (!readSnapTemporal(x, s, skip)) break;
     auto xt = transposeWithDegree(x);
+    auto a1 = runPagerankCall(nullptr, xt, initStatic);
+    auto ksOld    = vertices(x);
+    auto ranksOld = move(a1.ranks);
+
+    if (!readSnapTemporal(x, s, batch)) break;
+    xt = transposeWithDegree(x);
+    auto ks = vertices(x);
     ranksAdj.resize(x.span());
 
     // Find static pagerank of updated graph.
-    auto a1 = runPagerankCall("pagerankStatic", xt, initStatic);
+    auto a2 = runPagerankCall("pagerankStatic", xt, initStatic);
 
     // Find dynamic pagerank, scaling old vertices, and using 1/N for new vertices.
     adjustRanks(ranksAdj, ranksOld, ksOld, ks, 0.0f, float(ksOld.size())/ks.size(), 1.0f/ks.size());
-    auto a2 = runPagerankCall("pagerankDynamic", xt, initDynamic, &a1.ranks);
-
-    ksOld = move(ks);
-    ranksOld = move(a2.ranks);
+    auto a3 = runPagerankCall("pagerankDynamic", xt, initDynamic, &a2.ranks);
   }
 }
 
 
 void runPagerank(const string& data, bool show) {
-  int M = countLines(data);
+  int M = countLines(data), steps = 100;
   printf("Temporal edges: %d\n\n", M);
-  for (int batch=int(pow(10, int(log10(M)))); batch>=1000; batch/=10) {
+  for (int batch=1, i=0; batch<M; batch*=i&1? 2:5, i++) {
+    int skip = max(M/steps - batch, 0);
     printf("# Batch size %.0e\n", (double) batch);
-    runPagerankBatch(data, show, batch);
+    runPagerankBatch(data, show, skip, batch);
     printf("\n");
   }
 }

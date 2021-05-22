@@ -22,13 +22,15 @@ PagerankResult<T> pagerankNvgraph(const G& xt, const vector<T> *q=nullptr, Pager
   T   p = o.damping;
   T   E = o.tolerance;
   int L = o.maxIterations;
+  int N = xt.order();
   nvgraphHandle_t     h;
   nvgraphGraphDescr_t g;
   struct nvgraphCSCTopology32I_st csc;
   cudaDataType_t type = is_same<T, float>::value? CUDA_R_32F : CUDA_R_64F;
   vector<cudaDataType_t> vtype {type, type};
   vector<cudaDataType_t> etype {type};
-  vector<T> ranks(xt.order());
+  vector<T> ranks(N);
+  if (N==0) return {ranks};
   auto ks    = vertices(xt);
   auto vfrom = sourceOffsets(xt);
   auto efrom = destinationIndices(xt);
