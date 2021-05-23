@@ -7,15 +7,15 @@ This experiment was for comparing the performance between:
 Both techniques were attempted on different temporal graphs, updating each
 graph with multiple batch sizes. Batch sizes are always an order of 10. New
 edges are incrementally added to the graph batch-by-batch until the entire
-graph is complete. For some reason, there is only a small speedup of dynamic
-pagerank compared to static when batch size is **1000**. Could this be because
-of some optimization in nvGraph which makes it fast if initials ranks is not
-provided, but becomes slow when they are provided?
+graph is complete. The speedup of dynamic pagerank tends to **~2x** of
+static pagerank when batch size is **1000** for large graphs only. I was
+able to get [cool charts] for these logs using [sheets], showing the
+comparision.
 
 All outputs (including shortened versions) are saved in [out/](out/) and
-outputs for `email-Eu-core-temporal` and `wiki-talk-temporal` are listed here.
-The input data used for this experiment is available at ["graphs"] (for small
-ones), and the [SuiteSparse Matrix Collection].
+outputs for `email-Eu-core-temporal` and `sx-stackoverflow` are listed here.
+The input data used for this experiment is available at the
+[Stanford Large Network Dataset Collection].
 
 <br>
 
@@ -57,57 +57,70 @@ $ ./a.out ~/data/email-Eu-core-temporal.txt
 # [00002.225 ms; 000 iters.] [1.3943e-6 err.] pagerankDynamic
 ```
 
+[![](https://i.imgur.com/VOy7mNK.gif)][sheets]
+
+<br>
 <br>
 
 ```bash
 $ nvcc -std=c++17 -Xcompiler -lnvgraph -O3 main.cxx
-$ ./a.out ~/data/wiki-talk-temporal.txt
+$ ./a.out ~/data/sx-stackoverflow.txt
 
 # (SHORTENED)
-# Using graph wiki-talk-temporal.txt ...
-# Temporal edges: 7833141
-# order: 1140122 size: 3309560 {}
+# Using graph sx-stackoverflow.txt ...
+# Temporal edges: 63497051
+# order: 2601975 size: 36233429 {}
 #
 # # Batch size 1e+0
-# [00008.260 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00000.565 ms; 000 iters.] [1.0202e-6 err.] pagerankDynamic
+# [00051.180 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00003.086 ms; 000 iters.] [1.3436e-6 err.] pagerankDynamic
 #
 # # Batch size 5e+0
-# [00008.251 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00001.387 ms; 000 iters.] [1.8660e-6 err.] pagerankDynamic
+# [00057.530 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00007.709 ms; 000 iters.] [2.2293e-6 err.] pagerankDynamic
 #
 # # Batch size 1e+1
-# [00008.238 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00001.798 ms; 000 iters.] [2.2741e-6 err.] pagerankDynamic
+# [00104.728 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00030.413 ms; 000 iters.] [2.5812e-6 err.] pagerankDynamic
 #
 # # Batch size 5e+1
-# [00009.137 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00003.628 ms; 000 iters.] [3.0767e-6 err.] pagerankDynamic
+# [00103.689 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00051.977 ms; 000 iters.] [3.4487e-6 err.] pagerankDynamic
 #
 # # Batch size 1e+2
-# [00008.253 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00004.385 ms; 000 iters.] [3.2389e-6 err.] pagerankDynamic
+# [00051.169 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00020.250 ms; 000 iters.] [3.6013e-6 err.] pagerankDynamic
 #
 # # Batch size 5e+2
-# [00009.450 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00007.204 ms; 000 iters.] [3.3589e-6 err.] pagerankDynamic
+# [00051.129 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00028.123 ms; 000 iters.] [3.7696e-6 err.] pagerankDynamic
 #
 # # Batch size 1e+3
-# [00008.152 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00006.344 ms; 000 iters.] [3.3807e-6 err.] pagerankDynamic
+# [00051.090 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00030.524 ms; 000 iters.] [3.8050e-6 err.] pagerankDynamic
 #
 # # Batch size 5e+3
-# [00008.231 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00007.396 ms; 000 iters.] [3.5822e-6 err.] pagerankDynamic
+# [00051.178 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00035.398 ms; 000 iters.] [3.8865e-6 err.] pagerankDynamic
 #
 # # Batch size 1e+4
-# [00010.091 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00008.451 ms; 000 iters.] [3.7259e-6 err.] pagerankDynamic
+# [00051.192 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00037.255 ms; 000 iters.] [3.9379e-6 err.] pagerankDynamic
 #
 # # Batch size 5e+4
-# [00009.121 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00010.248 ms; 000 iters.] [4.2623e-6 err.] pagerankDynamic
+# [00051.161 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00041.770 ms; 000 iters.] [4.1385e-6 err.] pagerankDynamic
+#
+# # Batch size 1e+5
+# [00051.124 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00043.506 ms; 000 iters.] [4.2669e-6 err.] pagerankDynamic
+#
+# # Batch size 5e+5
+# [00051.133 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
+# [00047.743 ms; 000 iters.] [4.6767e-6 err.] pagerankDynamic
 ```
+
+[![](https://i.imgur.com/1hWPVEr.gif)][sheets]
 
 <br>
 <br>
@@ -119,14 +132,15 @@ $ ./a.out ~/data/wiki-talk-temporal.txt
 - [nvGraph pagerank example, CUDA Toolkit Documentation](https://docs.nvidia.com/cuda/archive/10.0/nvgraph/index.html#nvgraph-pagerank-example)
 - [nvGraph Library User's Guide](https://docs.nvidia.com/cuda/archive/10.1/pdf/nvGRAPH_Library.pdf)
 - [RAPIDS nvGraph NVIDIA graph library][nvGraph]
-- [SuiteSparse Matrix Collection]
+- [Stanford Large Network Dataset Collection]
 
 <br>
 <br>
 
-[![](https://i.imgur.com/sNyLL3K.jpg)](https://www.youtube.com/watch?v=SoiKp2oSUl0)
+[![](https://i.imgur.com/N7tUfyV.jpg)](https://www.youtube.com/watch?v=wYps-kGPh78)
 
 [nvGraph]: https://github.com/rapidsai/nvgraph
 [scaled-fill]: https://github.com/puzzlef/pagerank-dynamic-adjust-ranks
-["graphs"]: https://github.com/puzzlef/graphs
-[SuiteSparse Matrix Collection]: https://suitesparse-collection-website.herokuapp.com
+[cool charts]: https://photos.app.goo.gl/hYkWA66CWaKkEhs8A
+[sheets]: https://docs.google.com/spreadsheets/d/132ja_3B6c33BYcrf38Z7YV4sZOf5AT2Q_md5Y2znX3c/edit?usp=sharing
+[Stanford Large Network Dataset Collection]: http://snap.stanford.edu/data/index.html
