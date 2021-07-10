@@ -1,69 +1,26 @@
-Performance of [nvGraph] based static vs dynamic PageRank ([scaled-fill]).
+Performance of [nvGraph] based **static** vs **dynamic** PageRank
+([scaled-fill]).
 
 This experiment was for comparing the performance between:
-1. Find static pagerank of updated graph.
-2. Find dynamic pagerank, **scaling** old vertices, and using **1/N** for new vertices.
+1. Find **static** pagerank of updated graph.
+2. Find **dynamic** pagerank, **scaling** old vertices, and using **1/N** for new vertices.
 
-Both techniques were attempted on different temporal graphs, updating each
-graph with multiple batch sizes. Batch sizes are always an order of 10. New
-edges are incrementally added to the graph batch-by-batch until the entire
-graph is complete. The speedup of dynamic pagerank tends to **~2x** of
-static pagerank when batch size is **1000** for large graphs only. I was
-able to get [cool charts] for these logs using [sheets], showing the
-comparision.
+Both techniques were attempted on a number of temporal graphs, running each
+with multiple batch sizes (`1`, `5`, `10`, `50`, ...). New edges are
+incrementally added to the graph batch-by-batch until the entire graph is
+complete. **Dynamic pagerank** is clearly **faster** than *static pagerank*
+for most cases.
 
-All outputs (including shortened versions) are saved in [out/](out/) and
-outputs for `email-Eu-core-temporal` and `sx-stackoverflow` are listed here.
-The input data used for this experiment is available at the
-[Stanford Large Network Dataset Collection].
+All outputs are saved in [out](out/) and a small part of the output is listed
+here. Some [charts] are also included below, generated from [sheets]. The input
+data used for this experiment is available at the
+[Stanford Large Network Dataset Collection]. This experiment was done with
+guidance from [Prof. Dip Sankar Banerjee] and [Prof. Kishore Kothapalli].
 
 <br>
 
 ```bash
-$ nvcc -std=c++17 -Xcompiler -lnvgraph -O3 main.cxx
-$ ./a.out ~/data/email-Eu-core-temporal.txt
-
-# (SHORTENED)
-# Using graph email-Eu-core-temporal.txt ...
-# Temporal edges: 332335
-# order: 986 size: 24928 {}
-#
-# # Batch size 1e+0
-# [00003.239 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00000.245 ms; 000 iters.] [3.9897e-7 err.] pagerankDynamic
-#
-# # Batch size 5e+0
-# [00003.273 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00000.564 ms; 000 iters.] [6.9432e-7 err.] pagerankDynamic
-#
-# # Batch size 1e+1
-# [00003.257 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00000.730 ms; 000 iters.] [7.9544e-7 err.] pagerankDynamic
-#
-# # Batch size 5e+1
-# [00003.262 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00001.377 ms; 000 iters.] [1.2863e-6 err.] pagerankDynamic
-#
-# # Batch size 1e+2
-# [00003.256 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00001.627 ms; 000 iters.] [1.3745e-6 err.] pagerankDynamic
-#
-# # Batch size 5e+2
-# [00003.257 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00002.045 ms; 000 iters.] [1.3960e-6 err.] pagerankDynamic
-#
-# # Batch size 1e+3
-# [00003.259 ms; 000 iters.] [0.0000e+0 err.] pagerankStatic
-# [00002.225 ms; 000 iters.] [1.3943e-6 err.] pagerankDynamic
-```
-
-[![](https://i.imgur.com/VOy7mNK.gif)][sheets]
-
-<br>
-<br>
-
-```bash
-$ nvcc -std=c++17 -Xcompiler -lnvgraph -O3 main.cxx
+$ nvcc -std=c++17 -Xcompiler -lnvgraph -O3 main.cu
 $ ./a.out ~/data/sx-stackoverflow.txt
 
 # (SHORTENED)
@@ -120,6 +77,12 @@ $ ./a.out ~/data/sx-stackoverflow.txt
 # [00047.743 ms; 000 iters.] [4.6767e-6 err.] pagerankDynamic
 ```
 
+[![](https://i.imgur.com/VOy7mNK.gif)][sheets]
+[![](https://i.imgur.com/AB8sxAp.gif)][sheets]
+[![](https://i.imgur.com/0N6Qlyb.gif)][sheets]
+[![](https://i.imgur.com/ANicp4t.gif)][sheets]
+[![](https://i.imgur.com/uKb0yfa.gif)][sheets]
+[![](https://i.imgur.com/xuyBgcC.gif)][sheets]
 [![](https://i.imgur.com/1hWPVEr.gif)][sheets]
 
 <br>
@@ -132,6 +95,7 @@ $ ./a.out ~/data/sx-stackoverflow.txt
 - [nvGraph pagerank example, CUDA Toolkit Documentation](https://docs.nvidia.com/cuda/archive/10.0/nvgraph/index.html#nvgraph-pagerank-example)
 - [nvGraph Library User's Guide](https://docs.nvidia.com/cuda/archive/10.1/pdf/nvGRAPH_Library.pdf)
 - [RAPIDS nvGraph NVIDIA graph library][nvGraph]
+- [PageRank Algorithm, Mining massive Datasets (CS246), Stanford University](https://www.youtube.com/watch?v=ke9g8hB0MEo)
 - [Stanford Large Network Dataset Collection]
 
 <br>
@@ -139,8 +103,10 @@ $ ./a.out ~/data/sx-stackoverflow.txt
 
 [![](https://i.imgur.com/N7tUfyV.jpg)](https://www.youtube.com/watch?v=wYps-kGPh78)
 
+[Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
+[Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
+[Stanford Large Network Dataset Collection]: http://snap.stanford.edu/data/index.html
 [nvGraph]: https://github.com/rapidsai/nvgraph
 [scaled-fill]: https://github.com/puzzlef/pagerank-dynamic-adjust-ranks
-[cool charts]: https://photos.app.goo.gl/hYkWA66CWaKkEhs8A
+[charts]: https://photos.app.goo.gl/hYkWA66CWaKkEhs8A
 [sheets]: https://docs.google.com/spreadsheets/d/132ja_3B6c33BYcrf38Z7YV4sZOf5AT2Q_md5Y2znX3c/edit?usp=sharing
-[Stanford Large Network Dataset Collection]: http://snap.stanford.edu/data/index.html
