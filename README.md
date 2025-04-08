@@ -41,7 +41,7 @@ clearly **faster** than *static pagerank* for most cases.
 
 
 [![](https://i.imgur.com/N7tUfyV.jpg)](https://www.youtube.com/watch?v=wYps-kGPh78)
-
+![](https://ga-beacon.deno.dev/G-KD28SG54JQ:hbAybl6nQFOtmVxW4if3xw/github.com/puzzlef/pagerank-nvgraph-dynamic)
 
 [Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
 [Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
